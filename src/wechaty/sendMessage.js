@@ -51,11 +51,11 @@ export async function defaultMessage(msg, bot, ServiceType = 'GPT') {
     console.log('👑👑👑 / self content: ', content)
     if (content == startPrompt) {
       enabled = true
-      await contact.say("Bot Enabled.")
+      console.log("🔥 Bot Enabled.")
     }
     if (content == endPrompt) {
       enabled = false
-      await contact.say("Bot Disabled.")
+      console.log("🔵 Bot Disabled.")
     }
     return
   }
