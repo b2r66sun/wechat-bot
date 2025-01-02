@@ -45,6 +45,14 @@ export async function defaultMessage(msg, bot, ServiceType = 'GPT') {
   const isAlias = aliasWhiteList.includes(remarkName) || aliasWhiteList.includes(name) // 发消息的人是否在联系人白名单内
   const isBotSelf = botName === `@${remarkName}` || botName === `@${name}` // 是否是机器人自己
   // TODO 你们可以根据自己的需求修改这里的逻辑
+
+  // Time
+  const now = new Date();
+  const utc8Offset = 8 * 60;
+  const utc8Time = new Date(now.getTime() + utc8Offset * 60 * 1000);
+  const hourInUTC8 = utc8Time.getUTCHours();
+  const isRestTime = hourInUTC8 >= 1 && hourInUTC8 < 9
+
   if (!isText) return // 如果是机器人自己发送的消息或者消息类型不是文本则不处理
 
   if (isBotSelf) {
@@ -60,7 +68,7 @@ export async function defaultMessage(msg, bot, ServiceType = 'GPT') {
     return
   }
 
-  if (enabled){
+  if (isRestTime || enabled){
     try {
       // 区分群聊和私聊
       // 群聊消息去掉艾特主体后，匹配自动回复前缀
